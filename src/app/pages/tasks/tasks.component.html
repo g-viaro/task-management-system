@@ -1,0 +1,105 @@
+<div class="container mx-auto py-16 px-8">
+
+    <mat-toolbar>
+        <mat-toolbar-row class="flex flex-row justify-between">
+            <span class="uppercase font-extrabold">Tasks Management</span>
+            <button mat-icon-button routerLink="/add">
+                <mat-icon>playlist_add</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <!-- FILTRI -->
+    <div class="filtri mt-8">
+        <div class="flex lg:flex-row flex-col gap-4">
+            <div class="lg:w-5/12 w-full">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label class="normal-case">Search title</mat-label>
+                    <input matInput [formControl]="titleFilter">
+                </mat-form-field>
+            </div>
+            <div class="lg:w-5/12 w-full">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label class="normal-case">Search status</mat-label>
+                    <mat-select [formControl]="statusFilter">
+                        <mat-option [value]="'To Do'">To Do</mat-option>
+                        <mat-option [value]="'In Progress'">In Progress</mat-option>
+                        <mat-option [value]="'Done'">Done</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <button mat-stroked-button color="warn" class="lg:w-2/12 w-full !py-4 !h-full"
+                (click)="onClearFilter()">Clear filters</button>
+        </div>
+    </div>
+    <!-- FILTRI -->
+
+    <!-- TASKS -->
+    <div class="mt-8">
+        <mat-table #table matSort [dataSource]="data">
+
+            <!-- Title Column -->
+            <ng-container matColumnDef="title">
+                <mat-header-cell *matHeaderCellDef mat-sort-header="title"> Title </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="title">{{element.title}}</mat-cell>
+            </ng-container>
+
+            <!-- Description Column -->
+            <ng-container matColumnDef="description">
+                <mat-header-cell *matHeaderCellDef mat-sort-header="description"> Description </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="description">
+                    {{element.description.length > 60 ? element.description.slice(0, 60) + '...' : element.description}}
+                </mat-cell>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef mat-sort-header="status"> Status </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="status"> {{element.status}} </mat-cell>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef class="justify-center">Azioni</mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="actions" class="justify-center">
+                    <div class="buttons">
+                        <button mat-icon-button [routerLink]="'/' + element.id">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="onDelete(element.id, element.username)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+
+        </mat-table>
+
+        <!-- NO DATA -->
+        <div class="px-6 min-h-12 w-full flex justify-center items-center bg-white"
+            *ngIf="data.filteredData.length <= 0 && tasks.length <= 0 && !loading">
+            <span>No tasks found!</span>
+        </div>
+        <!-- NO DATA -->
+
+        <!-- SKELETON -->
+        @for (item of [1,2,3]; track $index) {
+        <div class="flex flex-row px-6 py-3 gap-4 bg-white" *ngIf="loading">
+            <div class="skeleton"></div>
+            <div class="skeleton"></div>
+            <div class="skeleton"></div>
+            <div class="skeleton"></div>
+        </div>
+        }
+        <!-- SKELETON -->
+
+        <!-- PAGINATOR -->
+        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 30, 50]"></mat-paginator>
+        <!-- PAGINATOR -->
+    </div>
+    <!-- TASKS -->
+
+</div>

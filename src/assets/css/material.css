@@ -1,0 +1,82 @@
+.material-select .mat-mdc-text-field-wrapper {
+    @apply text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6 rounded-none !bg-light py-1.5 px-4 hover:!bg-light;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::after,
+.mdc-text-field--filled .mdc-line-ripple::before {
+    border-bottom-color: transparent !important;
+    border-width: 0px !important;
+}
+
+.mdc-notched-outline__notch {
+    border-right-width: 0px !important;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-focus-overlay {
+    opacity: 1 !important;
+    background-color: transparent;
+}
+
+.material-select .mat-mdc-form-field-infix {
+    padding: 0px !important;
+    height: auto;
+    min-height: auto !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+    display: none;
+}
+
+mat-table {
+    overflow-x: auto;
+}
+
+mat-dialog-actions {
+    padding: 20px 24px !important;
+    justify-content: center !important;
+    gap: 1rem;
+}
+
+mat-cell {
+    word-break: break-word;
+}
+
+@media screen and (max-width: 960px) {
+
+    /*  Enable this to hide header*/
+    mat-table mat-header-cell {
+        display: none;
+    }
+
+    mat-table mat-row {
+        border-bottom: 10px solid #fafafa;
+        display: block;
+        padding: 10px;
+    }
+
+    mat-table mat-cell {
+        border-bottom: 1px solid #ddd !important;
+        display: flex;
+        align-items: center;
+        ;
+        justify-content: space-between !important;
+    }
+
+    mat-table mat-cell:before {
+        content: attr(data-label);
+        float: left;
+        text-transform: uppercase;
+        font-weight: normal;
+        font-size: .85em;
+    }
+
+    mat-cell:first-of-type,
+    mat-header-cell:first-of-type {
+        padding-left: 16px !important;
+    }
+
+    mat-cell:last-of-type,
+    mat-header-cell:last-of-type {
+        padding-right: 16px !important;
+    }
+}

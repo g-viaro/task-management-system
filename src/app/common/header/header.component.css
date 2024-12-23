@@ -1,0 +1,7 @@
+.link {
+    @apply p-4 hover:bg-background uppercase font-medium;
+}
+
+.active {
+    @apply bg-background font-bold
+}

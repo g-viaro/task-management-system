@@ -1,0 +1,26 @@
+<!-- NAVBAR -->
+<mat-toolbar color="primary" class="!bg-accent flex justify-between text-white !h-[7vh]">
+    <div class="buttons flex flex-row items-center">
+        <button mat-icon-button (click)="sidebar.toggle()"><mat-icon>menu</mat-icon></button>        
+        <span routerLink="/" class="cursor-pointer hover:text-gray-300">HOME</span>
+    </div>        
+</mat-toolbar>
+<!-- NAVBAR -->
+
+<mat-sidenav-container class="!h-[93vh]">
+    <!-- SIDENAV -->
+    <mat-sidenav #sidebar [fixedInViewport]="true" class="mt-[7vh] min-w-[30vw]">
+        <mat-nav-list class="!flex flex-col divide-y divide-black !py-0">
+            <a class="link" (click)="sidebar.close()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/">Tasks Managements System</a>            
+            <a class="link" (click)="sidebar.close()" routerLinkActive="active" routerLink="/add">Add Task</a>            
+        </mat-nav-list>
+    </mat-sidenav>
+    <!-- SIDENAV -->
+     <!-- CONTENT -->
+    <mat-sidenav-content>
+        <!-- BODY -->
+        <router-outlet></router-outlet>
+        <!-- BODY -->
+    </mat-sidenav-content>
+    <!-- CONTENT -->
+</mat-sidenav-container>

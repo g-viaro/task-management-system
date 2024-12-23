@@ -1,0 +1,48 @@
+<div class="container mx-auto py-16 px-8">    
+
+    <mat-toolbar>
+        <mat-toolbar-row class="flex flex-row justify-between">
+            <span class="uppercase font-extrabold">EDIT TASK</span>            
+            <button mat-icon-button routerLink="/">
+                <mat-icon>keyboard_backspace</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+                        
+    <form [formGroup]="formTask" (ngSubmit)="onSubmit()" class="flex flex-col gap-8 mt-8">
+
+        <div class="inputs flex flex-row gap-8">
+            <div class="lg:w-1/2 w-full">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label class="normal-case">Title</mat-label>
+                    <input matInput formControlName="title" required>
+                </mat-form-field>
+                <ng-container *ngFor="let error of error_messages.title">
+                    <p class="alert" *ngIf="formTask.get('title')?.hasError(error.type) && (formTask.get('title')?.dirty || formTask.get('title')?.touched)">{{error.message}}</p>
+                </ng-container>
+            </div>
+            <div class="lg:w-1/2 w-full">
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label class="normal-case">Status</mat-label>
+                    <mat-select formControlName="status" required>
+                        <mat-option [value]="'To Do'">To Do</mat-option>
+                        <mat-option [value]="'In Progress'">In Progress</mat-option>
+                        <mat-option [value]="'Done'">Done</mat-option>                        
+                    </mat-select>
+                </mat-form-field>
+                <ng-container *ngFor="let error of error_messages.status">
+                    <p class="alert" *ngIf="formTask.get('status')?.hasError(error.type) && (formTask.get('status')?.dirty || formTask.get('status')?.touched)">{{error.message}}</p>
+                </ng-container>
+            </div>
+        </div>
+        
+        <div class="w-full">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label class="normal-case">Description</mat-label>                                
+                <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>                
+        </div>        
+                                        
+        <button mat-stroked-button type="submit" color="" class="!py-4 !h-full lg:w-2/3 w-full mx-auto" [disabled]="!formTask.valid">Edit Task</button>
+    </form>            
+</div>

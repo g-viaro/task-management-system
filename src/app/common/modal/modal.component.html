@@ -1,0 +1,7 @@
+<mat-dialog-content>
+    <div [innerHTML]="data.text"></div>    
+</mat-dialog-content>
+<mat-dialog-actions>    
+    <button mat-raised-button color="primary" (click)="onConfirmClick()">{{data.text_button}}</button>    
+    <button mat-raised-button color="warn" (click)="onCloseClick()">{{data.text_close_button}}</button>    
+</mat-dialog-actions>
